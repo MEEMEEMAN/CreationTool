@@ -2,13 +2,13 @@
 // Created by PERHAPS-MACHINE on 2/20/2021.
 //
 
-#ifndef CREATIONTOOL_CREATIONCORE_H
-#define CREATIONTOOL_CREATIONCORE_H
+#ifndef CREATIONTOOL_BASE_H
+#define CREATIONTOOL_BASE_H
 
 #include <memory>
 
-void LogFunction(const char* msg);
-#define conlog(x) LogFunction(x);
+extern void LogMsg(const char* msg);
+#define conlog(x) LogMsg(x);
 
 
 template<typename T>
@@ -34,4 +34,4 @@ enum ExitCodes
         GL_GRAPHICS_FAIL_INIT =  -12
 };
 
-#endif //CREATIONTOOL_CREATIONCORE_H
+#endif //CREATIONTOOL_BASE_H
