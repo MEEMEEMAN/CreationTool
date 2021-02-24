@@ -11,6 +11,7 @@ namespace CT
 
     void CreateSDLWindow(Application& app);
     void SDLLoop(Application& app);
+    void SDLShutdown();
 }
 
 #endif //CREATIONTOOL_SDLLOOP_H

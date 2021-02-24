@@ -3,9 +3,11 @@
 //
 #include "Application.h"
 #include "Base.h"
+#include "Runtime/ScreenWindow.h"
+#include  "Runtime/Events.h"
 
 namespace CT {
-    Application* Application::applicationInstance = nullptr;
+    Application *Application::applicationInstance = nullptr;
 
     constexpr bool Application::IsMobile() {
 #ifdef WIN32
@@ -26,25 +28,36 @@ namespace CT {
         return Application::applicationInstance;
     }
 
-    void Application::Step()
-    {
+    struct FooEvent {
+        int x, y, z;
+    };
 
-    }
+    void Application::Initialize(int argc, char **argv) {
+        auto bus = std::make_shared<EventBus>();
 
-    void Application::Initialize(int argc, char **argv)
-    {
+        EventBus::Listener listener {bus};
+        listener.listen([](const std::string &event) {
+            conlog(event.c_str());
+        });
 
+        FooEvent f{};
+        bus->postpone(f);
+        bus->postpone(std::string("heya"));
+        bus->postpone(f);
+
+        bus->process();
+        //app wide init code
     }
 
     void Application::Shutdown() {
         shouldQuit = true;
     }
 
-    void Application::SetMainWindow(AppWindow *window) {
-        mainWindow = window;
+    ScreenWindow *Application::GetAppWindow() {
+        return mainWindow;
     }
 
-    AppWindow *Application::GetAppWindow() {
-        return mainWindow;
+    void Application::SetMainWindow(ScreenWindow *window) {
+        mainWindow = window;
     }
 }

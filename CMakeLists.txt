@@ -12,7 +12,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # -- CORE -- #
 #The core CreationTool Library
-#Core libraries are: rttr
+#Core libraries are: rttr, EventBus
+
+include_directories(Project/)
+
+add_subdirectory(Project/ThirdParty/EventBus)
 
 add_subdirectory(Project/Core)
 find_library(CreationToolCore Project/Core)

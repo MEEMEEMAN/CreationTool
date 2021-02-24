@@ -14,4 +14,8 @@ namespace CT
     ScreenWindowInfo ScreenWindow::GetInfo() {
         return ScreenWindowInfo();
     }
+
+    void ScreenWindow::SetTitle(const char *title) {
+
+    }
 }

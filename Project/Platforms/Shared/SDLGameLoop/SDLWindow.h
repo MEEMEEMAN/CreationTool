@@ -9,8 +9,11 @@
 struct SDL_Window;
 namespace CT
 {
-    class SDLWindow : ScreenWindow {
+    class SDLWindow : public ScreenWindow {
     public:
+
+        static SDLWindow* Create();
+        static void Destroy(SDLWindow* window);
 
         void SwapBuffers() override;
         inline ScreenWindowInfo GetInfo() override;

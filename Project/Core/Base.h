@@ -34,4 +34,14 @@ enum ExitCodes
         GL_GRAPHICS_FAIL_INIT =  -12
 };
 
+#include <iostream>
+
+void __M_Assert(const char* expr_str, bool expr, const char* file, int line, const char* msg);
+#ifndef NDEBUG
+#   define ctassert(Expr, Msg) \
+    __M_Assert(#Expr, Expr, __FILE__, __LINE__, Msg)
+#else
+#   define M_Assert(Expr, Msg) ;
+#endif
+
 #endif //CREATIONTOOL_BASE_H

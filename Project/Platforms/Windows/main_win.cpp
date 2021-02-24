@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 
     //enter game loop
     SDLLoop(app);
+    CT::SDLShutdown();
 
     return 0;
 }
