@@ -6,6 +6,28 @@
 #include "Runtime/ScreenWindow.h"
 #include  "Runtime/Events.h"
 
+
+#include "Runtime/Reflection.h"
+#include "Runtime/Plugins/PluginInstance.h"
+
+#include "Platforms/Editor/EditorMain.h"
+
+class Foo
+{
+    RTTR_ENABLE()
+};
+
+class Bar : public Foo
+{
+    RTTR_ENABLE(Foo)
+};
+
+RTTR_REGISTRATION
+{
+    registration::class_<Foo>("Foo");
+    registration::class_<Bar>("Bar");
+};
+
 namespace CT {
     Application *Application::applicationInstance = nullptr;
 
@@ -28,25 +50,9 @@ namespace CT {
         return Application::applicationInstance;
     }
 
-    struct FooEvent {
-        int x, y, z;
-    };
 
     void Application::Initialize(int argc, char **argv) {
-        auto bus = std::make_shared<EventBus>();
 
-        EventBus::Listener listener {bus};
-        listener.listen([](const std::string &event) {
-            conlog(event.c_str());
-        });
-
-        FooEvent f{};
-        bus->postpone(f);
-        bus->postpone(std::string("heya"));
-        bus->postpone(f);
-
-        bus->process();
-        //app wide init code
     }
 
     void Application::Shutdown() {

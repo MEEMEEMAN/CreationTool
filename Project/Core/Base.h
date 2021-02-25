@@ -27,13 +27,6 @@ constexpr Ref<T> CreateRef(Args&& ... args)
     return std::make_shared<T>(std::forward<Args>(args)...);
 }
 
-enum ExitCodes
-{
-        SDL_CONTEXT_FAIL_INIT = -10,
-        SDL_WINDOW_FAIL_CREATE = -11,
-        GL_GRAPHICS_FAIL_INIT =  -12
-};
-
 #include <iostream>
 
 void __M_Assert(const char* expr_str, bool expr, const char* file, int line, const char* msg);

@@ -18,6 +18,9 @@ include_directories(Project/)
 
 add_subdirectory(Project/ThirdParty/EventBus)
 
+include_directories(Project/ThirdParty)
+add_subdirectory(Project/ThirdParty/rttr)
+
 add_subdirectory(Project/Core)
 find_library(CreationToolCore Project/Core)
 
@@ -40,7 +43,7 @@ if (WIN32)
 
     file(GLOB_RECURSE WindowsFiles Project/Platforms/Windows/*.cpp)
     add_executable(${PROJECT_NAME}
-            ${WindowsFiles})
+            ${WindowsFiles} Project/Platforms/Editor/EditorMain.cpp Project/Platforms/Editor/EditorMain.h)
 
     include_directories(Project/ThirdParty/GLAD/include)
 
@@ -54,13 +57,8 @@ if (WIN32)
             GLAD)
 
     if (EDITOR_TOOLS)
-        target_compile_definitions(${PROJECT_NAME} PRIVATE EDITOR_TOOLS=1)
-
-        include_directories(Project/ThirdParty/ImGUI)
-        add_subdirectory(Project/ThirdParty/ImGUI)
-        #find_library(ImGUI Project/ThirdParty/ImGUI)
-
-        target_link_libraries(${PROJECT_NAME} ImGUI)
+        add_subdirectory(Project/Platforms/Editor)
+        target_link_libraries(${PROJECT_NAME} EDITOR_TOOLS)
     endif ()
 
 elseif (ANDROID)

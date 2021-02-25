@@ -5,5 +5,5 @@ message("** COMPILING ${PROJECT_NAME} ** ")
 
 file(GLOB_RECURSE CoreSources "${PROJECT_SOURCE_DIR}/*.cpp")
 
-add_library(CreationToolCore STATIC ${CoreSources} Runtime/Events.h Runtime/Events.cpp)
-target_link_libraries(CreationToolCore Dexode::EventBus)
+add_library(CreationToolCore STATIC ${CoreSources} Runtime/Reflection.h)
+target_link_libraries(CreationToolCore Dexode::EventBus rttr)
