@@ -2,36 +2,29 @@
 // Created by PERHAPS-MACHINE on 2/20/2021.
 //
 #include "Application.h"
-#include "Base.h"
-#include "Runtime/ScreenWindow.h"
-#include  "Runtime/Events.h"
+#include "Core/Base.h"
+#include "Runtime/Events/StandardEvents.h"
+#include "Runtime/Plugins/PluginManager.h"
 
-
-#include "Runtime/Reflection.h"
-#include "Runtime/Plugins/PluginInstance.h"
-
-#include "Platforms/Editor/EditorMain.h"
-
-class Foo
+class Tee
 {
-    RTTR_ENABLE()
-};
+public:
+    Tee()
+    {
+        conlog("Tee: Created!");
+    }
 
-class Bar : public Foo
-{
-    RTTR_ENABLE(Foo)
 };
 
 RTTR_REGISTRATION
 {
     registration::class_<Foo>("Foo");
-    registration::class_<Bar>("Bar");
 };
 
 namespace CT {
     Application *Application::applicationInstance = nullptr;
 
-    constexpr bool Application::IsMobile() {
+    bool Application::IsMobile() {
 #ifdef WIN32
         return false;
 #else
@@ -50,8 +43,12 @@ namespace CT {
         return Application::applicationInstance;
     }
 
+    void OnAppUpdate(const AppStep &step) {
 
-    void Application::Initialize(int argc, char **argv) {
+    }
+
+    void Application::Initialize(EventBus::Listener &nativeEvents, int argc, char **argv) {
+        nativeEvents.listen(&OnAppUpdate);
 
     }
 

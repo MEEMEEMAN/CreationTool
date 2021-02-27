@@ -5,8 +5,8 @@
 #include "PluginManager.h"
 #include "PluginLocation.h"
 
-namespace CT
-{
+namespace CT {
+
     const std::vector<PluginLocation> CT::PluginManager::SeekPlugins() {
         return std::vector<PluginLocation>();
     }

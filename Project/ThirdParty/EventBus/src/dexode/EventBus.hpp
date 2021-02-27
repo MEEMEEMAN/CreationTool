@@ -8,7 +8,6 @@
 #include <map>
 #include <memory>
 #include <shared_mutex>
-
 #include "dexode/eventbus/Bus.hpp"
 
 namespace dexode

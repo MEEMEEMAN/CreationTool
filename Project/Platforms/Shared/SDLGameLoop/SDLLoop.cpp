@@ -7,14 +7,16 @@
 #include "Core/Base.h"
 #include "Core/Application.h"
 #include "SDLWindow.h"
+#include "Core/Runtime/Events/StandardEvents.h"
+#include "Core/Runtime/Utility/Timer.h"
 
 #if WIN32
 #include "glad/glad.h"
 #endif
 
-void LogMsg(const char* msg)
+void LogMsg(const std::string& msg)
 {
-    SDL_Log("%s", msg);
+    SDL_Log("%s", msg.c_str());
 }
 
 namespace CT {
@@ -26,19 +28,31 @@ namespace CT {
 
     }
 
-    void SDLLoop(Application &app) {
+    void SDLLoop(EventBus::Listener& nativeEvents, Application &app) {
 
         SDL_Event sdlEvent;
+        auto bus = nativeEvents.getBus();
+
+        Timer appTimer;
         while(!app.shouldQuit)
         {
+            double dt = appTimer.Now();
+            appTimer.Start();
+
             while(SDL_PollEvent(&sdlEvent) != 0)
             {
                 switch (sdlEvent.type) {
                     case SDL_QUIT: //user requested to quit
+                        conlog("Quit Requested!");
                         app.Shutdown();
                         break;
                 }
             }
+
+            AppStep stepEvent {};
+            stepEvent.deltaTimeSeconds = dt;
+            bus->postpone(stepEvent);
+            bus->process();
         }
     }
 

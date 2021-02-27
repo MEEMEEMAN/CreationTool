@@ -8,9 +8,9 @@
 #include <sstream>
 
 #if WIN32
-
 #include <glad/glad.h>
-
+#elif ANDROID
+#include <GLES3/gl3.h>
 #endif
 
 void CT::SDLWindow::SwapBuffers() {
@@ -47,8 +47,6 @@ void InitSDL() {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, profile);
-
-
 }
 
 bool sdlInit = false;
@@ -76,7 +74,7 @@ CT::SDLWindow *CT::SDLWindow::Create() {
 #if WIN32
         ctassert(gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress), "Glad has failed to init.");
 #elif ANDROID
-        //functions get statically linked.
+        //functions are statically linked.
 #endif
 
         glInit = true;

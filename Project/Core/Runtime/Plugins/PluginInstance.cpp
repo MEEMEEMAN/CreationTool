@@ -8,6 +8,7 @@
 RTTR_REGISTRATION
 {
     registration::class_<CT::PluginInstance>("PluginInstance")
+            .constructor()
             .method("OnPluginLoad", &CT::PluginInstance::OnPluginLoad)
             .method("OnPluginUnLoad", &CT::PluginInstance::OnPluginUnLoad);
 };

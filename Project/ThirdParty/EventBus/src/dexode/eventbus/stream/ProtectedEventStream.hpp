@@ -5,6 +5,7 @@
 #include <functional>
 #include <vector>
 #include <shared_mutex>
+#include <iterator>
 
 #include "dexode/eventbus/stream/EventStream.hpp"
 

@@ -4,14 +4,17 @@
 
 #ifndef CREATIONTOOL_SDLLOOP_H
 #define CREATIONTOOL_SDLLOOP_H
+#include "Core/Runtime/Events/Events.h"
+#include "Core/Base.h"
+#include "Core/Application.h"
 
 namespace CT
 {
     class Application;
 
-    void CreateSDLWindow(Application& app);
-    void SDLLoop(Application& app);
-    void SDLShutdown();
+    CT_EXPORT void CreateSDLWindow(Application& app);
+    CT_EXPORT void SDLLoop(EventBus::Listener& nativeEvent, Application& app);
+    CT_EXPORT void SDLShutdown();
 }
 
 #endif //CREATIONTOOL_SDLLOOP_H

@@ -10,10 +10,14 @@ int main(int argc, char* argv[])
 {
     CT::Application app;
     CreateSDLWindow(app);
-    app.Initialize(argc, argv);
+
+    Ref<EventBus> eb = CreateRef<EventBus>();
+    EventBus::Listener listener {eb};
+
+    app.Initialize(listener, argc, argv);
 
     //enter game loop
-    SDLLoop(app);
+    SDLLoop(listener, app);
     CT::SDLShutdown();
 
     return 0;

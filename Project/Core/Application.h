@@ -5,6 +5,26 @@
 #ifndef CREATIONTOOL_APPLICATION_H
 #define CREATIONTOOL_APPLICATION_H
 #include "Runtime/ScreenWindow.h"
+#include "Runtime/Events/Events.h"
+#include "Core/Base.h"
+#include "Core/Runtime/Serialization.h"
+#include "Runtime/Reflection.h"
+
+class Foo
+{
+
+public:
+    Foo(int x) {conlog(std::to_string(x).c_str());}
+};
+
+class Bar : public Foo
+{
+
+};
+class Jar : public Foo
+{
+
+};
 
 namespace CT
 {
@@ -13,7 +33,9 @@ namespace CT
     public:
         //Called when the app first boots up.
         //A window with a valid render context should already exist.
-        void Initialize(int argc, char* argv[]);
+        //The app will listen to all standard events in Runtime/Events/StandardEvents.h
+        void Initialize(EventBus::Listener& nativeEvents, int argc, char* argv[]);
+
         //Signal the app to shutdown, save any state and free resources.
         void Shutdown();
 
@@ -24,7 +46,7 @@ namespace CT
         static constexpr bool IsEditor();
 
         //Is the app ran in a mobile environment? including on WebGL
-        static constexpr bool IsMobile();
+        static bool IsMobile();
 
         static Application* GetActiveApp();
         bool shouldQuit = false;

@@ -6,24 +6,19 @@
 #define CREATIONTOOL_PLUGININSTANCE_H
 #include "PluginLocation.h"
 #include "../Reflection.h"
+#include "Core/Base.h"
 
 namespace CT
 {
     class PluginInstance {
-    RTTR_ENABLE()
 
     public:
-
-        PluginInstance(PluginLocation location)
-        {
-            _location = location;
-        }
+        PluginInstance() { };//conlog("Da!"); };
 
         virtual void OnPluginLoad();
         virtual void OnPluginUnLoad();
         const PluginLocation& GetLoadLocation();
 
-    private:
         PluginLocation _location;
     };
 }
